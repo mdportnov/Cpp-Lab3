@@ -37,6 +37,8 @@ namespace lab3 {
         BigInt(const BigInt &); // copy constructor
         BigInt(BigInt &); // copy constructor
 
+        std::string getString();
+
         // io stream operators
         friend std::istream &operator>>(std::istream &in, BigInt &n);
 
@@ -65,13 +67,6 @@ namespace lab3 {
 
         bool operator<(const BigInt &num) const;
 
-        void reduceIn10(BigInt &);
-
-        void increaseIn10(BigInt &);
-
-
         void swap(BigInt &);
     };
-
-
 }

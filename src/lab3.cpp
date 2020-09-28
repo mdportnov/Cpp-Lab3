@@ -289,6 +289,9 @@ namespace lab3 {
         return (sign == num.sign) and (value == num.value);
     }
 
+    std::string BigInt::getString() {
+        return value;
+    }
 
     const char *msgs2[] = {" 0. Exit",
                            " 1. +"
