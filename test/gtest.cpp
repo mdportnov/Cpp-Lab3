@@ -35,6 +35,9 @@ TEST(BigIntOperator, OperatorEqual) {
     bool isTrue = bigInt2 == bigInt1;
     ASSERT_EQ(true, isTrue);
 }
+// сложение вычитание разных разрядов
+
+// сколько кода покрыто тестами
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

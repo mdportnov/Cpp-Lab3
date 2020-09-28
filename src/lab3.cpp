@@ -80,7 +80,6 @@ namespace lab3 {
             sign = '-';
         else
             sign = '+';
-
     }
 
     BigInt::BigInt(const BigInt &bigInt) {
@@ -145,7 +144,6 @@ namespace lab3 {
 
         ss >> res;
         BigInt out(res), add("1");
-//        out = out + "";
         out.sign = '+';
 
         return out;
@@ -294,7 +292,7 @@ namespace lab3 {
     }
 
     const char *msgs2[] = {" 0. Exit",
-                           " 1. +"
+                           " 1. +",
                            " 2. -"
     };
 

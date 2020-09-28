@@ -24,8 +24,8 @@ namespace lab3 {
     BigInt abs(const BigInt &num);
 
     class BigInt {
-        char sign;
-        std::string value;
+        bool sign;
+        uint8_t* value;
 
     public:
         friend BigInt abs(const BigInt &num);
@@ -60,6 +60,11 @@ namespace lab3 {
         BigInt operator-(const BigInt &num) const;
 
         BigInt operator~() const;
+
+        // Деструкторы
+        // Копирующий и перемещающий конструкторы
+        // value на массив u_int_8t
+        // перемещающий конструктор a+b=c / вместо двух раз вызовется вызов памяти один раз
 
         bool operator==(const BigInt &num) const;
 
