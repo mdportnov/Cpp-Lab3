@@ -1,43 +1,44 @@
 #include "gtest/gtest.h"
 #include "../src/lab3.cpp"
 
+using namespace lab3;
+
 TEST(BigIntConstructor, DefaultConstructor) {
-    lab3::BigInt bigInt("");
-    ASSERT_EQ("0", bigInt.getString());
+    ASSERT_EQ(0, (int) BigInt());
 }
 
 TEST(BigIntConstructor, StringConstructor) {
-    lab3::BigInt bigInt("4321");
-    ASSERT_EQ("4321", bigInt.getString());
+    ASSERT_EQ(0, (int) BigInt("0"));
+    ASSERT_EQ(-1, (int) BigInt("-1"));
+    ASSERT_EQ(1, (int) BigInt("1"));
+    ASSERT_EQ(0, (int) BigInt(nullptr));
+    ASSERT_EQ(0, (int) BigInt("1x"));
 }
 
-TEST(BigIntConstructor, TestException) {
-    ASSERT_ANY_THROW(lab3::BigInt("432asd").getString());
+TEST(BigIntConstructor, IntConstructor) {
+    ASSERT_EQ(0, (int) BigInt(0));
+    ASSERT_EQ(-1, (int) BigInt(-1));
+    ASSERT_EQ(1, (int) BigInt(1));
+    ASSERT_EQ(100, (int) BigInt(100));
+    ASSERT_EQ(-100, (int) BigInt(-100));
 }
 
-TEST(BigIntOperator, OperatorAdd) {
-    lab3::BigInt bigInt1("4321");
-    lab3::BigInt bigInt2("4321");
-    lab3::BigInt bigInt3 = bigInt1 + bigInt2;
-    ASSERT_EQ("8642", bigInt3.getString());
+TEST(Operator, tildaOperator) {
+    ASSERT_EQ(0, (int) ~BigInt(0));
+    ASSERT_EQ(-9, (int) ~BigInt(-1));
 }
 
-TEST(BigIntOperator, OperatorSub) {
-    lab3::BigInt bigInt1("4321");
-    lab3::BigInt bigInt2("4321");
-    lab3::BigInt bigInt3 = bigInt1 - bigInt2;
-    ASSERT_EQ("0", bigInt3.getString());
+TEST(Operator, unMinusOperator) {
+    ASSERT_EQ(0, (int) -BigInt(0));
+    ASSERT_EQ(-11, (int) -BigInt(11));
+    ASSERT_EQ(11, (int) -BigInt(-11));
 }
 
-TEST(BigIntOperator, OperatorEqual) {
-    lab3::BigInt bigInt1("4321");
-    lab3::BigInt bigInt2("4321");
-    bool isTrue = bigInt2 == bigInt1;
-    ASSERT_EQ(true, isTrue);
+TEST(Operator, sumOperator) {
+    ASSERT_EQ(1, (int) BigInt(-1) + 2);
+    ASSERT_EQ(-1, (int) BigInt(-1) + 0);
+    ASSERT_EQ(10000, (int) BigInt(-1) + 10001);
 }
-// сложение вычитание разных разрядов
-
-// сколько кода покрыто тестами
 
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);

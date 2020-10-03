@@ -12,6 +12,8 @@ int (*functions[])(){nullptr, dialog_input};
 
 int main() {
     int rc;
+//    BigInt bigInt = BigInt(std::cin);
+//    std::cout<<bigInt;
     while ((rc = dialog(msgs, NMsgs))) {
         if (!functions[rc]())
             break;

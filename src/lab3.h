@@ -8,70 +8,77 @@ namespace lab3 {
 
     class BigInt;
 
-    bool isValidNum(const std::string &);
-
-    void delLeadingZeroes(std::string &);
-
-    void addLeadingZeroes(std::string &, size_t);
-
-    void addEndingZeroes(std::string &, size_t);
-
-    void
-    getLargerAndSmaller(std::string &larger, std::string &smaller, const std::string &num1, const std::string &num2);
-
     int dialog(const char *[], int);
 
-    BigInt abs(const BigInt &num);
-
     class BigInt {
-        bool sign;
-        uint8_t* value;
+    private:
+        int length;
+        char *value;
+
+        BigInt(const BigInt &, int);
+
+        BigInt(int, int);
+
+        void correction();
 
     public:
-        friend BigInt abs(const BigInt &num);
+        BigInt();
 
-        // Constructors
-        BigInt(); // default
-        explicit BigInt(const long &); // long
-        explicit BigInt(const std::string &); // string
-        BigInt(const BigInt &); // copy constructor
-        BigInt(BigInt &); // copy constructor
+        explicit BigInt(std::istream &in) : BigInt() { in >> *this; };
 
-        std::string getString();
+        explicit BigInt(long int num);
 
-        // io stream operators
-        friend std::istream &operator>>(std::istream &in, BigInt &n);
+        explicit BigInt(int num);
 
-        friend std::ostream &operator<<(std::ostream &out, BigInt const &n);
+        explicit BigInt(const char *);
 
-        // assignment operator
-        BigInt &operator=(const BigInt &num);
+        // конструктор перемещения
+        BigInt(BigInt &&num) noexcept: length(num.length), value(num.value) { num.value = nullptr; }
 
-        BigInt &operator=(const long &num);
-
-        // unary arithmetic operations
-        BigInt operator+();
-
-        BigInt operator-() const;
-
-        // binary arithmetic operations
-        BigInt operator+(const BigInt &num) const;
-
-        BigInt operator-(const BigInt &num) const;
+        BigInt(const BigInt &);
 
         BigInt operator~() const;
 
-        // Деструкторы
-        // Копирующий и перемещающий конструкторы
-        // value на массив u_int_8t
-        // перемещающий конструктор a+b=c / вместо двух раз вызовется вызов памяти один раз
+        friend std::istream &operator>>(std::istream &, BigInt &);
 
-        bool operator==(const BigInt &num) const;
+        friend std::ostream &operator<<(std::ostream &, const BigInt &);
 
-        bool operator>(const BigInt &num) const;
+        friend BigInt operator+(const BigInt &, const BigInt &);
 
-        bool operator<(const BigInt &num) const;
+        BigInt operator-() const;
 
-        void swap(BigInt &);
+        friend BigInt operator-(const BigInt &a, const BigInt &b) { return a + (-b); };
+
+        friend BigInt &operator+=(BigInt &left, const BigInt &right) {
+            left = left + right;
+            return left;
+        };
+
+        friend BigInt &operator-=(BigInt &left, const BigInt &right) {
+            left = left + (-right);
+            return left;
+        };
+
+        BigInt operator*(const int &);
+
+        BigInt operator/(const int &);
+
+        friend BigInt &operator*=(BigInt &left, const int &right) {
+            left = left * right;
+            return left;
+        };
+
+        friend BigInt &operator/=(BigInt &left, const int &right) {
+            left = left / right;
+            return left;
+        };
+
+        BigInt &operator=(const BigInt &);
+
+        BigInt &operator=(BigInt &&); // оператор перемещения
+
+        explicit operator int() const;
+
+        ~BigInt() { delete[]value; }
     };
 }
