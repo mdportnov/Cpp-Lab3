@@ -47,7 +47,9 @@ namespace lab3 {
 
         BigInt operator-() const;
 
-        friend BigInt operator-(const BigInt &a, const BigInt &b) { return a + (-b); };
+        friend BigInt operator-(const BigInt &a, const BigInt &b) {
+            return a + (-b);
+        };
 
         friend BigInt &operator+=(BigInt &left, const BigInt &right) {
             left = left + right;
