@@ -3,7 +3,6 @@
 
 #include "lab3.h"
 #include <bits/stdc++.h>
-#include "vector"
 
 namespace lab3 {
     BigInt::BigInt() {
