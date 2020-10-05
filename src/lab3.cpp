@@ -51,44 +51,35 @@ namespace lab3 {
     }
 
     BigInt::BigInt(const char *str) : BigInt() {
-        try {
-            if (str == nullptr)
-                throw "Nullptr exception";
-            bool zero = true;
-            char sgn;
-            int l = strlen(str), z = 0;
-            if (str[0] == '-') {
-                sgn = '9';
+//        try {
+        if (str == nullptr)
+            throw "Nullptr exception";
+        bool zero = true;
+        char sgn;
+        int l = strlen(str), z = 0;
+        if (str[0] == '-') {
+            sgn = '9';
+            z++;
+            l--;
+        } else sgn = '0';
+
+        if (l != strspn(str + (sgn == '9' ? 1 : 0), "0123456789"))
+            throw "Wrong data error!";
+        while (zero && l > 0) {
+            if (str[z] == '0') {
                 z++;
                 l--;
-            } else sgn = '0';
-
-            if (l != strspn(str + (sgn == '9' ? 1 : 0), "0123456789"))
-                throw "Wrong data error!";
-            while (zero && l > 0) {
-                if (str[z] == '0') {
-                    z++;
-                    l--;
-                } else zero = false;
-            }
-            if (!zero) {
-                delete[]value;
-                value = new char[l + 1];
-                length = l;
-                value[0] = sgn;
-                for (int i = 1; i <= l; i++) {
-                    value[i] = str[z];
-                    z++;
-                }
-            }
+            } else zero = false;
         }
-        catch (const char *a) {
-            if (a == "Wrong data error!") {
-                std::cout << "The number should include only '-' at the begin and '0-9' symbols" << std::endl;
+        if (!zero) {
+            delete[]value;
+            value = new char[l + 1];
+            length = l;
+            value[0] = sgn;
+            for (int i = 1; i <= l; i++) {
+                value[i] = str[z];
+                z++;
             }
-        }
-        catch (...) {
-            std::cout << "Nullptr" << std::endl;
         }
     }
 
@@ -122,7 +113,7 @@ namespace lab3 {
     BigInt BigInt::operator~() const {
         if (value[0] == '0')
             return *this;
-        bool pr = true;//"запас" перенос +1 в след разряд
+        bool pr = true; // "запас" перенос +1 в след разряд
         BigInt res(length, 1);
         for (int i = length; i > 0; i--) {
             if (pr && value[i] != '0') {
@@ -180,7 +171,7 @@ namespace lab3 {
         }
         catch (const char *a) {
             if (a == "Wrong data error!") {
-                std::cout << "The number should include only '-'at the begin and '0-9' chars." << std::endl;
+                std::cout << "The number should include only '-' at the begin and '0-9' chars." << std::endl;
             }
         }
         catch (...) {
@@ -291,7 +282,7 @@ namespace lab3 {
         int i = 0;
         int pow = 1;
         if (length > 8)
-            std::cerr << "Wrong cast";
+            throw "Wrong cast";
         for (int k = length; k >= 1; k--) {
             i += (value[k] - '0') * pow;
             pow *= 10;
