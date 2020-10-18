@@ -8,9 +8,10 @@ namespace lab3 {
 
     class BigInt;
 
-    bool isValidNum(const std::string &);
+    bool isValidNum(const std::string &);           
 
-    void delLeadingZeroes(std::string &);
+    void delLeadingZeroes(std::string &);           // тут я совсем не уверен, но add и del методы наверное можно засунуть в приватную область потому что
+                                                    // они имеют непосредственное отношение к классу
 
     void addLeadingZeroes(std::string &, size_t);
 
